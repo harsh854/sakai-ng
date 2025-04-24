@@ -6,3 +6,9 @@
     gap: 0.5rem;
     border-top: 1px solid var(--surface-border);
 }
+.custom-logo {
+    height: 100%; /* Constrain the logo height to the height of the parent container (topbar) */
+    max-height: 3rem; /* Ensure the logo doesn't exceed the desired height */
+    width: auto; /* Maintain the aspect ratio */
+    vertical-align: middle; /* Align the logo vertically in the middle */
+}

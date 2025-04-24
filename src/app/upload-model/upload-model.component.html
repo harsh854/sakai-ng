@@ -1,0 +1,55 @@
+<div class="p-fluid">
+  <div class="card custom-card">
+    <div class="flex items-center justify-between mb-4">
+      <div class="text-xl font-semibold flex items-center gap-2">
+        <i class="pi pi-upload text-primary"></i>
+        Upload Model
+      </div>
+    </div>
+
+    <form [formGroup]="modelForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-2">
+        <label for="modelFile" class="font-medium">Choose Model File</label>
+        <input
+          type="file"
+          id="modelFile"
+          name="model_file"
+          (change)="onFileSelect($event)"
+          class="p-inputtext-lg file-input"
+          required
+        />
+      </div>
+
+      <div class="flex gap-4 mt-6">
+        <button
+          type="submit"
+          pButton
+          
+          iconPos="left"
+          label="Upload"
+          class="p-button p-button-primary"
+          [disabled]="isUploading"
+        >
+        <i class="pi pi-cloud-upload"></i>
+        <span>Upload</span></button>
+
+        <button
+          type="button"
+          pButton
+          icon="pi pi-refresh"
+          iconPos="left"
+          label="Reset"
+          class="p-button p-button-secondary"
+          (click)="onReset()"
+          [disabled]="isUploading"
+        ><i class="pi pi-refresh text-lg"></i><span>Reset</span></button>
+      </div>
+    </form>
+
+    <p-toast></p-toast>
+
+    <div class="spinner-overlay" *ngIf="isUploading">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </div>
+</div>

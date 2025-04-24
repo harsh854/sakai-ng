@@ -1,0 +1,133 @@
+/* Global styling */
+body {
+  background: linear-gradient(to right, #f9fafb, #f3f4f6);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin: 0;
+}
+
+/* Layout */
+.p-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* Card Styling */
+.custom-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  width: 100%;
+  max-width: 550px;
+  transition: 0.3s ease;
+}
+
+.custom-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Heading */
+.text-xl {
+  font-size: 1.5rem;
+  color: #1f2937;
+}
+
+/* Labels */
+label {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+/* File input */
+.file-input {
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+  transition: all 0.3s ease;
+}
+
+.file-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+/* Button spacing */
+button {
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+/* Toast */
+p-toast {
+  max-width: 400px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+/* Spinner overlay */
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.spinner-overlay p-progressSpinner {
+  width: 50px;
+  height: 50px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .custom-card {
+    padding: 20px;
+  }
+
+  .text-xl {
+    font-size: 1.25rem;
+  }
+}
+.p-button-primary {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+}
+
+.p-button-primary:hover {
+  background-color: #2563eb;
+}
+
+.p-button-secondary {
+  background-color: #6b7280;
+  border: none;
+  color: white;
+}
+
+.p-button-secondary:hover {
+  background-color: #4b5563;
+}
+.p-button .pi {
+  font-size: 1.2rem;
+  margin-right: 8px;
+}
+
+.p-button {
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+}

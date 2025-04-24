@@ -1,0 +1,86 @@
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form {
+    margin-bottom: 2rem;
+  }
+  
+  .field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 100%;  /* Ensure fields take full width */
+  }
+  
+  label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+    text-align: left;  /* Ensures the labels are left-aligned */
+    display: block;  /* Ensures the label takes up full width and aligns properly */
+  }
+  
+  input {
+    padding: 0.65rem;
+    border-radius: 6px;
+    border: 1px solid #ced4da;
+    font-size: 1rem;
+    outline: none;
+    width: 100%; /* Ensures the input fields take full width */
+  }
+  
+  input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
+  }
+  
+  .col-12 {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+  }
+  
+  .mt-2 {
+    margin-top: 1rem;
+  }
+  
+  .p-button-rounded {
+    border-radius: 50px;
+  }
+  
+  .my-4 {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .p-datatable-striped td {
+    text-align: center;
+  }
+  
+  .p-datatable-sm td {
+    font-size: 0.9rem;
+  }
+  
+  .p-message {
+    margin-top: 1rem;
+  }
+  

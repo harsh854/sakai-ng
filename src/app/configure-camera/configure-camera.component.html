@@ -1,0 +1,53 @@
+<div class="p-fluid">
+  <div class="card shadow-xl rounded-2xl p-6 bg-white border border-gray-200">
+    <div class="text-2xl font-bold text-gray-800 mb-6">📹 Camera Configuration</div>
+
+    <form [formGroup]="cameraForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Input Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div *ngFor="let field of fields" class="flex flex-col gap-2">
+          <label [for]="field.id" class="text-sm font-semibold text-gray-700">{{ field.label }}</label>
+          <input
+            pInputText
+            [id]="field.id"
+            [type]="field.type"
+            [placeholder]="field.placeholder"
+            class="p-inputtext-lg w-full"
+            [formControlName]="field.controlName"
+          />
+          <div *ngIf="submitted && f[field.controlName].errors" class="text-sm text-red-500">
+            {{ field.label }} is required.
+          </div>
+        </div>
+      </div>
+
+      
+     <!-- Action Buttons -->
+<div class="flex justify-end gap-4 pt-4">
+  <!-- Save Button -->
+  <button
+    type="submit"
+    pButton
+    class="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-xl shadow-md hover:bg-blue-700 hover:shadow-lg transition duration-200 ease-in-out"
+  >
+    <i class="pi pi-save text-lg"></i>
+    <span>Save Camera</span>
+  </button>
+
+  <!-- Reset Button -->
+  <button
+    type="button"
+    pButton
+    class="flex items-center gap-2 px-6 py-3 bg-gray-500 text-white font-medium rounded-xl shadow-md hover:bg-gray-600 hover:shadow-lg transition duration-200 ease-in-out"
+    (click)="onReset()"
+  >
+    <i class="pi pi-refresh text-lg"></i>
+    <span>Reset</span>
+  </button>
+</div>
+
+    </form>
+  </div>
+
+  <p-toast></p-toast>
+</div>

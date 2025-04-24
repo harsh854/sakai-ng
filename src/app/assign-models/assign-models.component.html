@@ -1,0 +1,56 @@
+<div class="page-wrapper">
+  <div class="card full-card">
+    
+    <!-- Back Button Inside Card -->
+    <div class="card-header">
+      <a class="back-home" href="/">
+        <i class="pi pi-arrow-left"></i>
+        Back to Home
+      </a>
+      <h1 >Assign Models to Camera</h1>
+    </div>
+
+    <!-- <p class="subtitle">Effortlessly connect AI models to your surveillance devices</p> -->
+
+    <div class="card-content">
+      <!-- Left: Form Section -->
+      <div class="form-section">
+        <form [formGroup]="assignForm" (ngSubmit)="onSubmit()">
+          <label for="cameraSelect">Select Camera:</label>
+          <select id="cameraSelect" formControlName="camera" required>
+            <option value="" disabled selected>Choose Camera</option>
+            <option *ngFor="let camera of cameras" [value]="camera.id">{{ camera.name }}</option>
+          </select>
+
+          <label for="modelSelect">Select Models:</label>
+          <select id="modelSelect" formControlName="models" multiple required>
+            <option *ngFor="let model of models" [value]="model.id">{{ model.name }}</option>
+          </select>
+
+          <div class="submit-button-wrapper">
+            <button type="submit" [disabled]="assignForm.invalid">
+              <i class="pi pi-check-circle"></i>
+              Assign Models
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider"></div>
+
+      <!-- Right: Saved Cameras -->
+      <div class="camera-list-section">
+        <h2>Saved Cameras</h2>
+        <div class="scrollable-camera-list">
+          <ul>
+            <li *ngFor="let camera of cameras">
+              <strong>{{ camera.name }}</strong>
+              <button (click)="startStream(camera.id)">Stream</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

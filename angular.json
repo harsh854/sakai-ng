@@ -26,12 +26,22 @@
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                            {
-                                "glob": "**/*",
-                                "input": "public"
-                            }
-                        ],
+    {
+        "glob": "**/*",
+        "input": "src/assets",
+        "output": "/assets"
+    },
+    {
+        "glob": "favicon.ico",
+        "input": "src",
+        "output": "/"
+    }
+],
+
                         "styles": [
+                            "node_modules/primeicons/primeicons.css",
+                            
+                           
                             "src/styles.scss"
                         ],
                         "scripts": []
@@ -91,12 +101,19 @@
                             }
                         ],
                         "styles": [
-                            "src/styles.scss"
-                        ],
+  "node_modules/primeng/resources/themes/saga-blue/theme.css",
+  "node_modules/primeng/resources/primeng.min.css",
+  "node_modules/primeicons/primeicons.css",
+  "src/styles.css"
+],
+
                         "scripts": []
                     }
                 }
             }
         }
+    },
+    "cli": {
+      "analytics": "eebb650e-46b0-4a20-9c58-c4bc0c0a89b8"
     }
 }

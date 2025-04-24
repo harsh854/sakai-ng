@@ -1,0 +1,32 @@
+<div class="container">
+    <h1>Facial Recognition</h1>
+    <form (ngSubmit)="startRecognition()">
+        <div class="form-group">
+            <label for="custom_message">Custom Greeting Message:</label>
+            <input type="text" id="custom_message" [(ngModel)]="customMessage" name="custom_message" required>
+        </div>
+
+        <div class="form-group">
+            <label for="language">Language:</label>
+            <select id="language" [(ngModel)]="language" name="language" required>
+                <option value="english">English</option>
+                <option value="arabic">Arabic</option>
+            </select>
+        </div>
+
+        <button type="submit" id="start_button" [disabled]="isVideoFeedActive">Start Recognition</button>
+        <button type="button" id="stop_button" (click)="stopRecognition()" [style.display]="isVideoFeedActive ? 'inline-block' : 'none'">Stop Recognition</button>
+    </form>
+
+    <h2>Video Feed:</h2>
+    <div class="video-container">
+        <img 
+    id="video_feed" 
+    [src]="videoFeedUrl" 
+    alt="Video feed"  
+    *ngIf="isVideoFeedActive" 
+    style="display: block; max-width: 100%; height: auto;" 
+/>
+
+    </div>
+</div>
