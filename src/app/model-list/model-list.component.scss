@@ -1,0 +1,42 @@
+.model-table {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .model-table th {
+    background-color: #f3f4f6;
+    color: #374151;
+    font-weight: 600;
+    padding: 1rem;
+  }
+  
+  .model-table td {
+    padding: 1rem;
+    color: #4b5563;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .display-name-input,
+  .file-input {
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #d1d5db;
+    background-color: #f9fafb;
+    transition: 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .display-name-input:focus,
+  .file-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+    outline: none;
+  }
+  /* In model-list.component.scss */
+.action-buttons {
+  display: flex;
+  gap: 0.75rem; /* or use margin-right on buttons if needed */
+}

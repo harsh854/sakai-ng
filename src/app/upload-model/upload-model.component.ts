@@ -27,8 +27,10 @@ export class UploadModelComponent {
     private messageService: MessageService
   ) {
     this.modelForm = this.fb.group({
-      modelFile: [null], // Add the form control here if required in the future
+      modelFile: [null],
+      displayName: ['', Validators.required] // <-- added this
     });
+    
   }
 
   // Handle file selection
@@ -52,11 +54,11 @@ export class UploadModelComponent {
   isUploading = false;
 
   onSubmit(): void {
-    if (!this.selectedFile) {
+    if (!this.selectedFile || !this.modelForm.value.displayName) {
       this.messageService.add({
         severity: 'error',
-        summary: 'File Error',
-        detail: 'Please select a file before submitting.',
+        summary: 'Missing Info',
+        detail: 'Please select a file and enter a display name.',
       });
       return;
     }
@@ -64,6 +66,7 @@ export class UploadModelComponent {
     this.isUploading = true;
     const formData = new FormData();
     formData.append('model_file', this.selectedFile);
+    formData.append('display_name', this.modelForm.value.displayName); 
   
     this.http.post(`${environment.apiUrl}/upload_model`, formData).subscribe({
       next: (response) => {
@@ -78,8 +81,6 @@ export class UploadModelComponent {
       },
       error: (err) => {
         console.error('Upload Failed:', err);
-        console.error('Error Response:', err.error); // Log the response body
-        console.error('Status:', err.status); // Log the status code
         this.messageService.add({
           severity: 'error',
           summary: 'Upload Failed',
@@ -88,14 +89,15 @@ export class UploadModelComponent {
         this.isUploading = false;
       },
     });
-    
   }
+  
   
   
   // Reset form and file selection
   onReset(): void {
     this.selectedFile = null;
-    this.modelForm.reset(); // Reset form group
-    (document.getElementById('modelFile') as HTMLInputElement).value = ''; // Clear file input
+    this.modelForm.reset();
+    (document.getElementById('modelFile') as HTMLInputElement).value = '';
   }
+  
 } 

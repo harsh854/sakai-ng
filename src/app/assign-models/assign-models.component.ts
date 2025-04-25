@@ -10,6 +10,7 @@ import { environment } from '../environment';
 interface Model {
   id: number; // or number, depending on your data
   name: string;
+  display_name: string;
 }
 
 // Define the structure of a camera

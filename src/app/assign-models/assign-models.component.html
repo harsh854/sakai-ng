@@ -24,7 +24,7 @@
 
           <label for="modelSelect">Select Models:</label>
           <select id="modelSelect" formControlName="models" multiple required>
-            <option *ngFor="let model of models" [value]="model.id">{{ model.name }}</option>
+            <option *ngFor="let model of models" [value]="model.id">{{ model.display_name }}</option>
           </select>
 
           <div class="submit-button-wrapper">

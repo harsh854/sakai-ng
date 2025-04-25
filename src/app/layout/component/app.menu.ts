@@ -24,19 +24,24 @@ export class AppMenu {
                 label: 'CCTV Camera Management',
                 items: [
                     { label: 'Configure Camera', icon: 'pi pi-cog', routerLink: ['/'] },
-                    { label: 'Cameras List', icon: 'pi pi-list', routerLink: ['/camera-list'] },
                     { label: 'Upload Model', icon: 'pi pi-upload', routerLink: ['/upload-model'] },
                     { label: 'Assign Models', icon: 'pi pi-check-square', routerLink: ['/assign-model'] },
-                    { 
-                        label: 'Attendance System', 
-                        icon: 'pi pi-fw pi-id-card', 
-                        routerLink: ['/administration'], 
-                        items: [
-                            { label: 'Register New User', icon: 'pi pi-user-plus', routerLink: ['/administration/register'] },
-                            { label: 'Generate Attendance Report', icon: 'pi pi-file', routerLink: ['/administration/attendance-report'] },
-                            { label: 'Punch Attendance', icon: 'pi pi-clock', routerLink: ['/administration/punch-attendance'] }
-                        ]
-                    }
+                    { label: 'Cameras List', icon: 'pi pi-list', routerLink: ['/camera-list'] },
+                    { label: 'Camera History', icon: 'pi pi-history', routerLink: ['/camera-history'] },
+                    { label: 'Models List', icon: 'pi pi-list', routerLink: ['/model-list'] },
+                    
+                    
+                   
+                    // { 
+                    //     label: 'Attendance System', 
+                    //     icon: 'pi pi-fw pi-id-card', 
+                    //     routerLink: ['/administration'], 
+                    //     items: [
+                    //         { label: 'Register New User', icon: 'pi pi-user-plus', routerLink: ['/administration/register'] },
+                    //         { label: 'Generate Attendance Report', icon: 'pi pi-file', routerLink: ['/administration/attendance-report'] },
+                    //         { label: 'Punch Attendance', icon: 'pi pi-clock', routerLink: ['/administration/punch-attendance'] }
+                    //     ]
+                    // }
                 ]
             },
             

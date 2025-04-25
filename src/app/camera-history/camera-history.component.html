@@ -1,0 +1,30 @@
+<div class="card">
+    <p-table
+      [value]="cameraHistory"
+      class="p-datatable-sm custom-table p-shadow-4"
+      [paginator]="true"
+      [rows]="10"
+      [responsiveLayout]="'scroll'"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Camera ID</th>
+          <th>Camera Name</th>
+          <th>Assigned Models</th>
+        </tr>
+      </ng-template>
+  
+      <ng-template pTemplate="body" let-row>
+        <tr>
+          <td>{{ row.camera_id }}</td>
+          <td>{{ row.camera_name }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let model of row.models">{{ model }}</li>
+            </ul>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  

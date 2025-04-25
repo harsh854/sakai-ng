@@ -9,6 +9,8 @@ import { ConfigureCameraComponent } from './app/configure-camera/configure-camer
 import { AssignModelsComponent } from './app/assign-models/assign-models.component';
 import { AttendanceSystemComponent } from './app/attendance-system/attendance-system.component';
 import { CameraListComponent } from './app/camera-list/camera-list.component';
+import { CameraHistoryComponent } from './app/camera-history/camera-history.component';
+import { ModelListComponent } from './app/model-list/model-list.component';
 
 export const appRoutes: Routes = [
     {
@@ -17,8 +19,10 @@ export const appRoutes: Routes = [
         children: [
             { path: '', component: ConfigureCameraComponent },
             {path: 'camera-list', component: CameraListComponent},
+            {path: 'model-list', component: ModelListComponent},
             {path: 'upload-model', component: UploadModelComponent},
             {path: 'assign-model', component: AssignModelsComponent},
+            {path: 'camera-history', component: CameraHistoryComponent},
             {path: 'administration', loadChildren: () => import('./app/attendance-system/attendance.routes').then(m => m.AttendanceRoutingModule)},
             { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
             { path: 'documentation', component: Documentation },

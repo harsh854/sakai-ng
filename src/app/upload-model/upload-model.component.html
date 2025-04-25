@@ -1,13 +1,14 @@
 <div class="p-fluid">
   <div class="card custom-card">
     <div class="flex items-center justify-between mb-4">
-      <div class="text-xl font-semibold flex items-center gap-2">
+      <div class="text-xl font-semibold flex items-center gap-4">
         <i class="pi pi-upload text-primary"></i>
         Upload Model
       </div>
     </div>
 
-    <form [formGroup]="modelForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="modelForm" (ngSubmit)="onSubmit()" class="w-full max-w-xl mx-auto">
+
       <div class="flex flex-col gap-2">
         <label for="modelFile" class="font-medium">Choose Model File</label>
         <input
@@ -19,6 +20,23 @@
           required
         />
       </div>
+      <!-- Add this below the file input -->
+<!-- Modify this wrapper -->
+<div class="flex flex-col gap-2 mt-8 w-full">
+  <label for="displayName" class="font-bold">Model Display Name</label>
+  <input
+  type="text"
+  id="displayName"
+  formControlName="displayName"
+  class="display-name-input"
+  placeholder="Enter a user-friendly display name"
+  required
+/>
+
+
+</div>
+
+
 
       <div class="flex gap-4 mt-6">
         <button

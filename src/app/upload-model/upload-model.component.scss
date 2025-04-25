@@ -50,6 +50,24 @@ label {
   background-color: #f9fafb;
   transition: all 0.3s ease;
 }
+/* Display Name input */
+.display-name-input {
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #d1d5db;
+  background-color: #f9fafb;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.display-name-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
 
 .file-input:focus {
   border-color: #3b82f6;

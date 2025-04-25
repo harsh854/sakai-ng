@@ -71,7 +71,7 @@
   <div *ngIf="selectedCamera" class="view-details">
     <div class="detail-card">
       <div *ngFor="let detail of viewFields">
-        <label>{{ detail.label }}:</label>
+       <label><b>{{ detail.label }}:</b></label> 
         <span>{{ selectedCamera[detail.key] }}</span>
       </div>
     </div>

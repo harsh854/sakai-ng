@@ -16,9 +16,12 @@ import { LayoutService } from '../service/layout.service';
                 <i class="pi pi-bars"></i>
             </button>
             <a class="layout-topbar-logo" routerLink="/">
-            <img src="/assets/IIIOT-logo.jpg" alt="IIIOT Logo" class="custom-logo" />
+            <!-- <img src="/assets/IIIOT-logo.jpg" alt="IIIOT Logo" class="custom-logo" /> -->
             <span class="font-bold text-4xl"
-            style="background: linear-gradient(90deg, rgb(196, 8, 77) 0%, rgb(44, 16, 185) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-fill-color: transparent;">IIIOT
+            style=" background: linear-gradient(90deg, rgb(196, 8, 77) 0%, rgb(44, 16, 185) 100%); 
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
+            -webkit-text-fill-color: transparent; ">
+            IIIOT
         </span>
             </a>
         </div>

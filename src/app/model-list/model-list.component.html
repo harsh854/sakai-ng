@@ -1,0 +1,110 @@
+<!-- Toast and Confirm Dialog -->
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+
+<!-- Table Section -->
+<div class="card">
+ 
+  <p-table [value]="models" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Display Name</th>
+        <th>File Name</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-model>
+      <tr>
+        <td>{{ model.id }}</td>
+        <td>{{ model.display_name }}</td>
+        <td>{{ model.name }}</td>
+        <td>
+          <div class="action-buttons">
+            <button
+              pButton
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text p-button-info"
+              (click)="openEditDialog(model)"
+              title="Edit"
+            >
+            <i class="pi pi-pencil"></i>
+          </button>
+            <button
+              pButton
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger"
+              (click)="confirmDelete(model)"
+              title="Delete"
+            > <i class="pi pi-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- Edit Dialog -->
+<p-dialog
+  header="Edit Model"
+  [(visible)]="displayEditDialog"
+  [modal]="true"
+  [style]="{ width: '450px' }"
+  [closable]="true"
+  [dismissableMask]="true"
+>
+  <div class="p-fluid p-3">
+    <div class="field mb-3">
+      <label for="displayName" class="mb-2 font-medium">Display Name</label>
+      <input
+        id="displayName"
+        type="text"
+        pInputText
+        [(ngModel)]="newDisplayName"
+        required
+        class="p-inputtext-sm"
+      />
+    </div>
+
+    <div class="field mb-4">
+      <label for="modelFile" class="mb-2 font-medium">Model File (.pt)</label>
+      <input
+        id="modelFile"
+        type="file"
+        (change)="onFileSelect($event)"
+        accept=".pt"
+        class="p-inputtext-sm"
+      />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-end gap-4 mt-6">
+      <button
+        pButton
+        icon="pi pi-check"
+        label="Save Changes"
+        (click)="updateModel()"
+        [disabled]="isUpdating"
+        class="p-button-sm p-button-success shadow-6"
+      >
+      
+      <span>Save Changes</span>
+    </button>
+  
+      <button
+        pButton
+        icon="pi pi-times"
+        label="Cancel"
+        (click)="displayEditDialog = false"
+        [disabled]="isUpdating"
+        class="p-button-sm p-button-secondary shadow-1"
+      >
+      
+      <span>Cancel</span>
+    </button>
+    </div>
+  </ng-template>
+  
+</p-dialog>
+
