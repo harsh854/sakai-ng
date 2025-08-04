@@ -1,0 +1,183 @@
+<!-- Device Table with Expandable Rows -->
+<div class="card">
+  <div class="card-header">
+    <h5 class="mb-0 text-primary">Device Locations</h5>
+  </div>
+  <div class="card-body p-0">
+    <p-table
+      [value]="deviceList"
+      dataKey="device_id"
+      [expandedRowKeys]="expandedRowKeys"
+      responsiveLayout="scroll"
+      class="p-datatable-sm"
+      [tableStyle]="{ 'min-width': '100%' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 3rem"></th>
+          <th>Device ID</th>
+          <th>Device IP</th>
+          <th>Location</th>
+          <th>District</th>
+          <th>State</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="body" let-device let-expanded="expanded">
+        <tr>
+          <td>
+            <button
+              type="button"
+              pButton
+              pRipple
+              [pRowToggler]="device"
+              class="p-button-text p-button-rounded p-button-plain"
+              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+            ></button>
+          </td>
+          <td>
+            <span class="fw-bold">{{ device.device_id }}</span>
+          </td>
+          <td>
+            <span class="text-muted">{{ device.device_ip || device.nvr_ip || 'N/A' }}</span>
+          </td>
+          <td>
+            <span>{{ device.location_name }}</span>
+          </td>
+          <td>
+            <span>{{ device.district }}</span>
+          </td>
+          <td>
+            <span>{{ device.state }}</span>
+          </td>
+          <td>
+            <button
+              pButton
+              type="button"
+              icon="pi pi-map-marker"
+              label="View on Map"
+              class="p-button-sm p-button-outlined p-button-info"
+              (click)="viewOnMap(device.latitude, device.longitude)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="rowexpansion" let-device>
+        <tr>
+          <td colspan="7">
+            <div class="p-3">
+              <div class="mb-3">
+                <h6 class="fw-bold text-secondary mb-2">
+                  <i class="pi pi-video me-2"></i>
+                  Channels for Device: {{ device.device_id }}
+                </h6>
+              </div>
+              
+              <!-- Channels Table -->
+              <div *ngIf="getDeviceChannels(device).length > 0; else noChannels">
+                <p-table
+                  [value]="getDeviceChannels(device)"
+                  responsiveLayout="scroll"
+                  class="p-datatable-sm"
+                  [tableStyle]="{ 'min-width': '100%' }"
+                >
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>Channel ID</th>
+                      <th>Channel Name</th>
+                      <th>Status</th>
+                      <th>Recording</th>
+                      <th>Signal</th>
+                      <th>Bitrate (Mbps)</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-channel>
+                    <tr>
+                      <td>
+                        <span class="fw-bold">{{ channel.channel_id }}</span>
+                      </td>
+                      <td>
+                        <span>{{ channel.name }}</span>
+                      </td>
+                      <td>
+                        <span
+                          class="badge"
+                          [ngClass]="channel.online ? 'bg-success' : 'bg-danger'"
+                        >
+                          <i [class]="channel.online ? 'pi pi-check' : 'pi pi-times'"></i>
+                          {{ channel.online ? 'Online' : 'Offline' }}
+                        </span>
+                      </td>
+                      <td>
+                        <span
+                          class="badge"
+                          [ngClass]="channel.recording ? 'bg-primary' : 'bg-secondary'"
+                        >
+                          <i [class]="channel.recording ? 'pi pi-circle-fill' : 'pi pi-circle'"></i>
+                          {{ channel.recording ? 'Recording' : 'Not Recording' }}
+                        </span>
+                      </td>
+                      <td>
+                        <span
+                          class="badge"
+                          [ngClass]="channel.signal ? 'bg-info' : 'bg-warning'"
+                        >
+                          <i [class]="channel.signal ? 'pi pi-wifi' : 'pi pi-exclamation-triangle'"></i>
+                          {{ channel.signal ? 'Good' : 'Weak' }}
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-muted">
+                          {{ formatBitrate(channel.bitrate) }}
+                        </span>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+              
+              <ng-template #noChannels>
+                <div class="text-center p-4">
+                  <i class="pi pi-info-circle text-muted" style="font-size: 2rem;"></i>
+                  <p class="text-muted mt-2 mb-0">
+                    No channel information available for this device.
+                  </p>
+                  <p *ngIf="getDeviceNVRHealth(device)?.error" class="text-danger small mt-1">
+                    Error: {{ getDeviceNVRHealth(device)?.error }}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<!-- Leaflet Map -->
+<div
+  *ngIf="showMap"
+  class="map-container mt-4 p-3 border rounded shadow bg-white"
+>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="mb-0 text-primary">
+      <i class="pi pi-map-marker me-2"></i>
+      Device Location
+    </h5>
+    <button
+      pButton
+      type="button"
+      label="Close Map"
+      icon="pi pi-times"
+      class="p-button-sm p-button-danger"
+      (click)="closeMap()"
+    ></button>
+  </div>
+  <div
+    id="leafletMap"
+    style="height: 400px; width: 100%; border: 1px solid #ccc; border-radius: 6px;"
+  ></div>
+</div>
