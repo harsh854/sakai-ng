@@ -1,0 +1,262 @@
+<p-dialog
+  [(visible)]="showTenantDialog"
+  modal="modal"
+  header="🎉 Device Registration Successful"
+  [style]="{ width: '450px' }"
+  [closable]="false"
+  [dismissableMask]="true"
+  styleClass="success-dialog"
+>
+  <div class="success-content">
+    <div class="success-icon">
+      <i class="pi pi-check-circle"></i>
+    </div>
+    <h3 class="success-title">Your device has been registered!</h3>
+    <div class="tenant-info">
+      <label class="tenant-label">Tenant ID</label>
+      <div class="tenant-id">{{ generatedTenantId }}</div>
+      <small class="tenant-note">Please save this ID for future reference</small>
+    </div>
+    <button
+      pButton
+      type="button"
+      label="Got it!"
+      icon="pi pi-thumbs-up"
+      class="p-button-success p-button-rounded success-btn"
+      (click)="showTenantDialog = false"
+    ></button>
+  </div>
+</p-dialog>
+
+<div class="registration-container">
+  <div class="registration-card">
+    <!-- Header Section -->
+    <div class="card-header">
+      <div class="header-content">
+        <i class="pi pi-cog header-icon"></i>
+        <div>
+          <h1 class="card-title">Field Device Registration</h1>
+          <p class="card-subtitle">Configure and register your surveillance device</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Content -->
+    <div class="card-body">
+      <!-- Location Selection Section -->
+      <div class="form-section">
+        <div class="section-header">
+          <i class="pi pi-map-marker section-icon"></i>
+          <h3 class="section-title">Location Information</h3>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">
+              <i class="pi pi-globe label-icon"></i>
+              State
+            </label>
+            <p-dropdown
+              [options]="states"
+              [(ngModel)]="selectedState"
+              optionLabel="name"
+              placeholder="Select your state"
+              (onChange)="onStateChange()"
+              styleClass="custom-dropdown"
+              [showClear]="true"
+            >
+              <ng-template pTemplate="selectedItem">
+                <div *ngIf="selectedState" class="selected-item">
+                  <i class="pi pi-map"></i>
+                  <span>{{ selectedState.name }}</span>
+                </div>
+              </ng-template>
+              <ng-template let-state pTemplate="item">
+                <div class="dropdown-item">
+                  <i class="pi pi-map"></i>
+                  <span>{{ state.name }}</span>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="pi pi-building label-icon"></i>
+              District
+            </label>
+            <p-dropdown
+              [options]="districts"
+              [(ngModel)]="selectedDistrict"
+              optionLabel="name"
+              placeholder="Select your district"
+              styleClass="custom-dropdown"
+              [disabled]="!selectedState"
+              [showClear]="true"
+            >
+              <ng-template pTemplate="selectedItem">
+                <div *ngIf="selectedDistrict" class="selected-item">
+                  <i class="pi pi-building"></i>
+                  <span>{{ selectedDistrict.name }}</span>
+                </div>
+              </ng-template>
+              <ng-template let-district pTemplate="item">
+                <div class="dropdown-item">
+                  <i class="pi pi-building"></i>
+                  <span>{{ district.name }}</span>
+                </div>
+              </ng-template>
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div *ngIf="!isFormEnabled" class="location-notice">
+          <i class="pi pi-info-circle"></i>
+          <span>Please select both state and district to continue with device configuration</span>
+        </div>
+      </div>
+
+      <!-- Device Configuration Section -->
+      <form *ngIf="isFormEnabled" (ngSubmit)="onSubmit()" class="device-form">
+        <div class="form-section">
+          <div class="section-header">
+            <i class="pi pi-desktop section-icon"></i>
+            <h3 class="section-title">Device Configuration</h3>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label class="form-label">
+                <i class="pi pi-id-card label-icon"></i>
+                Device ID
+              </label>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="formData.deviceId"
+                name="deviceId"
+                placeholder="Enter unique device identifier"
+                class="form-input"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <i class="pi pi-server label-icon"></i>
+                NVR IP Address
+              </label>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="formData.nvrIp"
+                name="nvrIp"
+                placeholder="192.168.1.100"
+                class="form-input"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <i class="pi pi-user label-icon"></i>
+                NVR Login ID
+              </label>
+              <input
+                pInputText
+                type="text"
+                [(ngModel)]="formData.nvrId"
+                name="nvrId"
+                placeholder="Administrator"
+                class="form-input"
+                required
+              />
+            </div>
+
+            <div class="form-group full-width">
+              <label class="form-label">
+                <i class="pi pi-lock label-icon"></i>
+                NVR Password
+              </label>
+              <input
+                pInputText
+                type="password"
+                [(ngModel)]="formData.nvrPassword"
+                name="nvrPassword"
+                placeholder="Enter secure password"
+                class="form-input"
+                required
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <i class="pi pi-compass section-icon"></i>
+            <h3 class="section-title">Location Details</h3>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <i class="pi pi-map-marker label-icon"></i>
+              Precise Location
+            </label>
+            <input
+              pInputText
+              type="text"
+              [(ngModel)]="formData.locationName"
+              (input)="onLocationInput($event)"
+              placeholder="Search for exact location (e.g., Sector 14, Noida)"
+              class="form-input location-input"
+              autocomplete="off"
+            />
+
+            <div *ngIf="locationSuggestions.length" class="suggestions-container">
+              <div class="suggestions-list">
+                <div 
+                  *ngFor="let loc of locationSuggestions" 
+                  (click)="selectLocation(loc)"
+                  class="suggestion-item"
+                >
+                  <i class="pi pi-map-marker suggestion-icon"></i>
+                  <span class="suggestion-text">{{ loc.display }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="formData.coordinates.lat && formData.coordinates.lng" class="coordinates-info">
+              <i class="pi pi-compass coordinates-icon"></i>
+              <span class="coordinates-text">
+                Coordinates: {{ formData.coordinates.lat | number:'1.6-6' }}, {{ formData.coordinates.lng | number:'1.6-6' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button
+            pButton
+            type="button"
+            label="Reset Form"
+            icon="pi pi-refresh"
+            class="p-button-outlined p-button-secondary reset-btn"
+            (click)="resetForm()"
+            [disabled]="loading"
+          ></button>
+
+          <button
+            pButton
+            type="submit"
+            label="Register Device"
+            icon="pi pi-check"
+            class="p-button-success submit-btn"
+            [disabled]="loading"
+            [loading]="loading"
+          ></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
