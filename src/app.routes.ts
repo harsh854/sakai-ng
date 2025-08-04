@@ -11,6 +11,7 @@ import { AttendanceSystemComponent } from './app/attendance-system/attendance-sy
 import { CameraListComponent } from './app/camera-list/camera-list.component';
 import { CameraHistoryComponent } from './app/camera-history/camera-history.component';
 import { ModelListComponent } from './app/model-list/model-list.component';
+import { DeviceRegistrationComponent } from './app/device-registration/device-registration.component';
 
 export const appRoutes: Routes = [
     {
@@ -20,6 +21,7 @@ export const appRoutes: Routes = [
             { path: '', component: ConfigureCameraComponent },
             {path: 'camera-list', component: CameraListComponent},
             {path: 'model-list', component: ModelListComponent},
+            {path: 'device-registration', component: DeviceRegistrationComponent},
             {path: 'upload-model', component: UploadModelComponent},
             {path: 'assign-model', component: AssignModelsComponent},
             {path: 'camera-history', component: CameraHistoryComponent},

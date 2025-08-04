@@ -1,0 +1,270 @@
+<div class="device-registration-container p-4">
+  <p-card header="Device Registration" class="w-full max-w-4xl mx-auto">
+    <p-toast></p-toast>
+    
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="device-registration-form">
+      
+      <!-- Device Information Section -->
+      <div class="form-section mb-6">
+        <h3 class="text-xl font-semibold mb-4 text-primary">Device Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Device ID -->
+          <div class="field">
+            <label for="deviceId" class="block text-sm font-medium mb-2">
+              Device ID <span class="text-red-500">*</span>
+            </label>
+            <div class="p-input-icon-right">
+              <i class="pi pi-spin pi-spinner" *ngIf="isCheckingDeviceId"></i>
+              <i class="pi pi-check text-green-500" *ngIf="!isCheckingDeviceId && registrationForm.get('deviceId')?.value && !deviceIdExists"></i>
+              <i class="pi pi-times text-red-500" *ngIf="!isCheckingDeviceId && deviceIdExists"></i>
+              <input 
+                id="deviceId"
+                type="text" 
+                pInputText 
+                formControlName="deviceId"
+                placeholder="Enter unique device ID"
+                class="w-full"
+                [class.ng-invalid]="registrationForm.get('deviceId')?.invalid && registrationForm.get('deviceId')?.touched"
+              />
+            </div>
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('deviceId')"
+            >
+              {{ getFieldError('deviceId') }}
+            </small>
+          </div>
+
+          <!-- NVR IP -->
+          <div class="field">
+            <label for="nvrIp" class="block text-sm font-medium mb-2">
+              NVR IP Address <span class="text-red-500">*</span>
+            </label>
+            <input 
+              id="nvrIp"
+              type="text" 
+              pInputText 
+              formControlName="nvrIp"
+              placeholder="192.168.1.100"
+              class="w-full"
+              [class.ng-invalid]="registrationForm.get('nvrIp')?.invalid && registrationForm.get('nvrIp')?.touched"
+            />
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('nvrIp')"
+            >
+              {{ getFieldError('nvrIp') }}
+            </small>
+          </div>
+
+          <!-- NVR ID -->
+          <div class="field">
+            <label for="nvrId" class="block text-sm font-medium mb-2">
+              NVR ID <span class="text-red-500">*</span>
+            </label>
+            <input 
+              id="nvrId"
+              type="text" 
+              pInputText 
+              formControlName="nvrId"
+              placeholder="Enter NVR ID"
+              class="w-full"
+              [class.ng-invalid]="registrationForm.get('nvrId')?.invalid && registrationForm.get('nvrId')?.touched"
+            />
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('nvrId')"
+            >
+              {{ getFieldError('nvrId') }}
+            </small>
+          </div>
+
+          <!-- NVR Password -->
+          <div class="field">
+            <label for="nvrPassword" class="block text-sm font-medium mb-2">
+              NVR Password <span class="text-red-500">*</span>
+            </label>
+            <p-password 
+              id="nvrPassword"
+              formControlName="nvrPassword"
+              placeholder="Enter NVR password"
+              [toggleMask]="true"
+              [feedback]="false"
+              styleClass="w-full"
+              inputStyleClass="w-full"
+            ></p-password>
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('nvrPassword')"
+            >
+              {{ getFieldError('nvrPassword') }}
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <p-divider></p-divider>
+
+      <!-- Location Information Section -->
+      <div class="form-section mb-6">
+        <h3 class="text-xl font-semibold mb-4 text-primary">Location Information</h3>
+        
+        <!-- Instructions -->
+        <p-message 
+          severity="info" 
+          text="Please select your state and district first to enable other fields."
+          class="mb-4"
+          *ngIf="!fieldsEnabled"
+        ></p-message>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- State -->
+          <div class="field">
+            <label for="state" class="block text-sm font-medium mb-2">
+              State <span class="text-red-500">*</span>
+            </label>
+            <p-dropdown
+              id="state"
+              formControlName="state"
+              [options]="states"
+              optionLabel="name"
+              optionValue="code"
+              placeholder="Select State"
+              [loading]="isLoadingStates"
+              styleClass="w-full"
+              [showClear]="true"
+            ></p-dropdown>
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('state')"
+            >
+              {{ getFieldError('state') }}
+            </small>
+          </div>
+
+          <!-- District -->
+          <div class="field">
+            <label for="district" class="block text-sm font-medium mb-2">
+              District <span class="text-red-500">*</span>
+            </label>
+            <p-dropdown
+              id="district"
+              formControlName="district"
+              [options]="districts"
+              optionLabel="name"
+              optionValue="code"
+              placeholder="Select District"
+              [loading]="isLoadingDistricts"
+              styleClass="w-full"
+              [showClear]="true"
+            ></p-dropdown>
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('district')"
+            >
+              {{ getFieldError('district') }}
+            </small>
+          </div>
+
+          <!-- Address with Autocomplete -->
+          <div class="field md:col-span-2">
+            <label for="address" class="block text-sm font-medium mb-2">
+              Address <span class="text-red-500">*</span>
+            </label>
+            <p-autoComplete
+              id="address"
+              formControlName="address"
+              [suggestions]="locationSuggestions"
+              (completeMethod)="searchLocationSuggestions($event.query)"
+              (onSelect)="onLocationSuggestionSelect($event)"
+              field="address"
+              placeholder="Start typing your address..."
+              styleClass="w-full"
+              inputStyleClass="w-full"
+              [minLength]="3"
+              [delay]="300"
+            ></p-autoComplete>
+            <small class="text-gray-500 block mt-1">
+              Type at least 3 characters to see suggestions
+            </small>
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('address')"
+            >
+              {{ getFieldError('address') }}
+            </small>
+          </div>
+
+          <!-- Pincode -->
+          <div class="field">
+            <label for="pincode" class="block text-sm font-medium mb-2">
+              Pincode
+            </label>
+            <input 
+              id="pincode"
+              type="text" 
+              pInputText 
+              formControlName="pincode"
+              placeholder="Enter 6-digit pincode"
+              class="w-full"
+              maxlength="6"
+              [class.ng-invalid]="registrationForm.get('pincode')?.invalid && registrationForm.get('pincode')?.touched"
+            />
+            <small 
+              class="p-error block mt-1" 
+              *ngIf="getFieldError('pincode')"
+            >
+              {{ getFieldError('pincode') }}
+            </small>
+          </div>
+
+          <!-- Selected Location Info -->
+          <div class="field" *ngIf="selectedLocationSuggestion">
+            <label class="block text-sm font-medium mb-2">Selected Location Coordinates</label>
+            <div class="bg-gray-50 p-3 rounded border">
+              <p class="text-sm">
+                <strong>Latitude:</strong> {{ selectedLocationSuggestion.coordinates.latitude | number:'1.6-6' }}
+              </p>
+              <p class="text-sm">
+                <strong>Longitude:</strong> {{ selectedLocationSuggestion.coordinates.longitude | number:'1.6-6' }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p-divider></p-divider>
+
+      <!-- Form Actions -->
+      <div class="form-actions flex justify-between items-center pt-4">
+        <p-message 
+          severity="warn" 
+          text="Please ensure all required fields are filled correctly."
+          *ngIf="registrationForm.invalid && registrationForm.dirty"
+        ></p-message>
+
+        <div class="flex gap-3 ml-auto">
+          <p-button 
+            label="Reset" 
+            icon="pi pi-refresh" 
+            severity="secondary"
+            (onClick)="resetForm()"
+            [disabled]="isSubmitting"
+            type="button"
+          ></p-button>
+          
+          <p-button 
+            label="Register Device" 
+            icon="pi pi-check" 
+            type="submit"
+            [loading]="isSubmitting"
+            [disabled]="!isFormValid"
+            loadingIcon="pi pi-spin pi-spinner"
+          ></p-button>
+        </div>
+      </div>
+    </form>
+  </p-card>
+</div>
