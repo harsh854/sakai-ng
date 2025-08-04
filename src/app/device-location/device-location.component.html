@@ -144,8 +144,8 @@
                   <p class="text-muted mt-2 mb-0">
                     No channel information available for this device.
                   </p>
-                  <p *ngIf="device.nvr_health?.error" class="text-danger small mt-1">
-                    Error: {{ device.nvr_health.error }}
+                  <p *ngIf="getDeviceNVRHealth(device)?.error" class="text-danger small mt-1">
+                    Error: {{ getDeviceNVRHealth(device)?.error }}
                   </p>
                 </div>
               </ng-template>
