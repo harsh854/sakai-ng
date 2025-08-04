@@ -106,10 +106,6 @@ export class DeviceLocationComponent implements OnInit {
     return this.deviceChannelsMap.get(device.device_id) || [];
   }
 
-  getDeviceNVRHealth(device: Device) {
-    return device.nvr_health;
-  }
-
   formatBitrate(bitrate: number): string {
     if (!bitrate || bitrate === 0) {
       return 'N/A';
