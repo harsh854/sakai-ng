@@ -28,20 +28,30 @@ export class AppMenu {
                     { label: 'Assign Models', icon: 'pi pi-check-square', routerLink: ['/assign-model'] },
                     { label: 'Cameras List', icon: 'pi pi-list', routerLink: ['/camera-list'] },
                     { label: 'Camera History', icon: 'pi pi-history', routerLink: ['/camera-history'] },
-                    { label: 'Models List', icon: 'pi pi-list', routerLink: ['/model-list'] },
+                    { label: 'Models List', icon: 'pi pi-list', routerLink: ['/model-list'] }
+                ]
+            },
+            {
+                label: 'Device Management',
+                items: [
+                    { label: 'Register Device', icon: 'pi pi-plus-circle', routerLink: ['/device-registration'] }
                     
-                    
-                   
-                    // { 
-                    //     label: 'Attendance System', 
-                    //     icon: 'pi pi-fw pi-id-card', 
-                    //     routerLink: ['/administration'], 
-                    //     items: [
-                    //         { label: 'Register New User', icon: 'pi pi-user-plus', routerLink: ['/administration/register'] },
-                    //         { label: 'Generate Attendance Report', icon: 'pi pi-file', routerLink: ['/administration/attendance-report'] },
-                    //         { label: 'Punch Attendance', icon: 'pi pi-clock', routerLink: ['/administration/punch-attendance'] }
-                    //     ]
-                    // }
+                    // Future device management features can be added here:
+                    // { label: 'Device List', icon: 'pi pi-list', routerLink: ['/device-list'] },
+                    // { label: 'Device Status', icon: 'pi pi-eye', routerLink: ['/device-status'] },
+                    // { label: 'Device Map', icon: 'pi pi-map', routerLink: ['/device-map'] }
+                ]
+            }
+            
+            // Attendance System (commented out for now)
+            // {
+            //     label: 'Attendance System',
+            //     items: [
+            //         { label: 'Register New User', icon: 'pi pi-user-plus', routerLink: ['/administration/register'] },
+            //         { label: 'Generate Attendance Report', icon: 'pi pi-file', routerLink: ['/administration/attendance-report'] },
+            //         { label: 'Punch Attendance', icon: 'pi pi-clock', routerLink: ['/administration/punch-attendance'] }
+            //     ]
+            // }
                 ]
             },
             
